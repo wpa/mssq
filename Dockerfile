@@ -8,7 +8,11 @@
 FROM alpine
 
 RUN apk add --update mosquitto
+COPY mosquitto.conf /etc/mosquitto/mosquitto.conf
+COPY pwfile /pwfile
+COPY acl /acl
 
-EXPOSE 1883
-CMD ["mosquitto"]
+EXPOSE 1883 
+ENTRYPOINT ["/usr/sbin/mosquitto"]
+CMD ["-c","/etc/mosquitto/mosquitto.conf"]
 
